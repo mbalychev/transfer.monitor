@@ -1,12 +1,4 @@
-export interface IAnchorageResponse {
-  pageNumber: number;
-  totalPages: number;
-  itemsOnPage: number;
-  successResult?: any;
-  badResult: BadResult[];
-}
-
-interface BadResult {
+export interface BadResult {
   response: Response;
   description: string;
   id: string;
