@@ -3,7 +3,7 @@ export interface ILastUpdate {
   lastId: number;
   dateLastUpdate: string;
   dateCreateHelperOne: string;
-  dateOrgData: Date;
+  dateOrgData: string;
 }
 
 interface Id {

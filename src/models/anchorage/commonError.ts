@@ -1,5 +1,5 @@
 export interface ICommonError{
     id: string;
-    date: Date;
+    date: string;
     description: string;
 }

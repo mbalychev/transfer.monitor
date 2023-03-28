@@ -3,6 +3,7 @@ export interface SuccessAnchorage {
   date: string;
   model: ModelSuccess;
   code: string;
+  name: string;
 }
 
 interface ModelSuccess {
@@ -31,4 +32,5 @@ interface TBrokerOrgDocs {
 
 interface TOrgs {
   tO_UUID: string;
+  name?: string;
 }

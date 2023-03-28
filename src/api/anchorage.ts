@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ILastUpdate } from '../models/anchorage/lastUpdate';
 import { IAnchorageResponse } from '../models/anchorage/AnchorageResponse';
 
-const backend = 'http://192.168.1.149:4097/api/Anchorage';
+const backend = 'http://192.168.1.98:4097/api/Anchorage';
 
 export const getErrors = async (pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
     const resp = await axios.get<IAnchorageResponse>(`${backend}/Errors?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);

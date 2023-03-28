@@ -5,6 +5,7 @@ import { Space } from 'antd';
 import React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { dateConvert } from '../../models/dateConvert';
 
 
 dayjs.extend(customParseFormat);
@@ -19,20 +20,17 @@ export const LastUpdateUnchorage = () => {
         setLastUpdate(result);
     }
     
-    const dateLastId = () => {
-        if(lastUpdate?.dateOrgData != undefined)
-            return (
-                <>
-                    {dayjs(lastUpdate?.dateOrgData)?.toString()}
-                </>
-                )
-        else
-                return(<></>)
-
+    const updateIntervalLastUpdate = () => {
+        setTimeout(async () =>
+        {
+            await loadLastUpdate()
+            updateIntervalLastUpdate();
+        },5000);
     }
+
     useEffect(() => {
-        const i = setTimeout(() => loadLastUpdate(),1000);
-    })
+        updateIntervalLastUpdate();
+    },[])
 
 
     function dayjs(dateOrgData: Date | undefined): import("react").ReactNode {
@@ -40,10 +38,12 @@ export const LastUpdateUnchorage = () => {
     }
 
     return (
-        <div style={{margin: '20px', width: '350px', height: '25px', backgroundColor: '#411763', color: 'white', padding: '6px'}}>
+        <div style={{margin: '20px', width: '350px', height: '25px', backgroundColor: '#411763', color: 'white', padding: '6px', border: '1px', borderRadius: '2px'}}>
                 <Space>
-                        last: <b>{lastUpdate?.lastId}</b> {lastUpdate?.dateOrgData.toString()}
-                        {/* {dayjs(lastUpdate?.dateOrgData)?.toString()} */}
+                        Id:{lastUpdate?.lastId}
+                        <span style={{opacity: '0.4'}}>
+                            {dateConvert(lastUpdate?.dateOrgData)}
+                        </span> 
                 </Space>
         </div>
     )
