@@ -8,6 +8,7 @@ import { Space } from 'antd';
 import { LastUpdateUnchorage } from './components/anchorage/lastUpdate';
 import { CommonErrors } from './components/anchorage/commonErrors';
 
+
 function App() {
   return (
     <div className="App">
@@ -16,14 +17,14 @@ function App() {
           <header>
             <Space>
               Monitor
-              <img src={logo}  alt="logo" style={{height: '20px'}}/>
+              <img src={logo} alt="logo" style={{ height: '20px' }} />
             </Space>
           </header>
         </Col>
       </Row>
       <Row>
         <Col>
-        <LastUpdateUnchorage/>
+          <LastUpdateUnchorage />
         </Col>
       </Row>
       <Row>
@@ -35,8 +36,8 @@ function App() {
         </Col>
       </Row>
       <Row>
-        <Col  span={12}>
-        <CommonErrors />
+        <Col span={12}>
+          <CommonErrors />
         </Col>
       </Row>
     </div>

@@ -15,7 +15,6 @@ dayjs.extend(customParseFormat)
 export const CommonErrors = () => {
     const [commonErrorsList, setCommonErrorsList] = useState<IAnchorageResponse>();
     const [pageCommonErorr, setPageCommonErorr] = useState<number>(1);
-    const [pageCommonErorrLoading, setPageCommonErorrLoading] = useState<boolean>();
     const onPageCommonErrors = 10;
     const refToCommonErorr = useRef<HTMLDivElement>(null!);
 
@@ -30,10 +29,11 @@ export const CommonErrors = () => {
         setTimeout(async () => {
             await loadCommonErrors();
             updateIntervalCommonError();
-        },10000);
+        },1000);
 
     }
     useEffect(() =>{
+        loadCommonErrors();
         updateIntervalCommonError();
     },[]) 
 

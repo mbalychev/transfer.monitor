@@ -9,3 +9,14 @@ export const dateConvert = (dateString?: string): string => {
         else
             return '';
     }
+
+    ////без UTC
+    export const dateConvertNonLocal = (dateString?: string): string => {
+    if(dateString)
+        {
+            const date: Date = new Date(dateString);
+            return String(`${date.toDateString()} - ${date.toTimeString()}`);
+        }
+        else
+            return '';
+    }

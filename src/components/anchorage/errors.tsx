@@ -1,4 +1,4 @@
-import { DatePicker, Divider, List, Pagination, Space, Spin, TimePicker } from "antd"
+import { DatePicker, Divider, InputNumber, List, Pagination, Space, Spin, TimePicker } from "antd"
 import { Col, Row } from "antd/es/grid";
 import { useEffect, useRef, useState } from "react";
 import { getErrors } from "../../api/anchorage";
@@ -13,8 +13,10 @@ dayjs.extend(customParseFormat)
 export const AnchorageErrors = () => {
     const [errorList, setErrorList] = useState<IAnchorageResponse>();
     const [pagetErorr, setPagetErorr] = useState<number>(1);
+    const [updateErorrEvery, setUpdateErorrEvery] = useState(100000);
     const onPageErrors: number = 15;
     const refToSpinError = useRef<HTMLDivElement>(null!);
+
     const loadErrors = async () => {
         refToSpinError.current.style.visibility = 'visible';
         const resp: IAnchorageResponse = await getErrors(pagetErorr, onPageErrors);
@@ -27,23 +29,32 @@ export const AnchorageErrors = () => {
             await loadErrors();
             updateIntervalError();
         }
-        ,10000);
+        ,updateErorrEvery);
     } 
 
     useEffect(() =>{
+        loadErrors();
         updateIntervalError();
-    },[]) 
+    },[updateErorrEvery]) 
 
     return (
         <div style={{margin: '20px'}}>
-        <Divider style={{color: "white", backgroundColor: "red", borderRadius: '2px'}}>
+             <Space>
+            Update:
+            <InputNumber 
+                title="автобновление каждые (сек.)" 
+                onChange={(val) => setUpdateErorrEvery(Number(val))}
+                defaultValue={updateErorrEvery}/>
+                sec.
+            </Space>
+        <div style={{color: "white", backgroundColor: "red", borderRadius: '2px'}}>
             <Space>
                 errors
                 <div ref={refToSpinError} style={{color: 'white', visibility: 'hidden'}}>
                     <LoadingOutlined style={{color: '#ffffff'}}/>
                 </div>
             </Space>
-        </Divider>
+        </div>
         <List
         size='small'
         dataSource={errorList?.badResult}

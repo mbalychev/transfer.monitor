@@ -12,25 +12,24 @@ dayjs.extend(customParseFormat);
 
 export const LastUpdateUnchorage = () => {
     const [lastUpdate, setLastUpdate] = useState<ILastUpdate>();
-    
-    const loadLastUpdate = async () =>{
+
+    const loadLastUpdate = async () => {
         const result: ILastUpdate = await getLastUpdate();
         console.log(result);
-        
+
         setLastUpdate(result);
     }
-    
+
     const updateIntervalLastUpdate = () => {
-        setTimeout(async () =>
-        {
+        setTimeout(async () => {
             await loadLastUpdate()
             updateIntervalLastUpdate();
-        },5000);
+        }, 5000);
     }
 
     useEffect(() => {
         updateIntervalLastUpdate();
-    },[])
+    }, [])
 
 
     function dayjs(dateOrgData: Date | undefined): import("react").ReactNode {
@@ -38,13 +37,13 @@ export const LastUpdateUnchorage = () => {
     }
 
     return (
-        <div style={{margin: '20px', width: '350px', height: '25px', backgroundColor: '#411763', color: 'white', padding: '6px', border: '1px', borderRadius: '2px'}}>
-                <Space>
-                        Id:{lastUpdate?.lastId}
-                        <span style={{opacity: '0.4'}}>
-                            {dateConvert(lastUpdate?.dateOrgData)}
-                        </span> 
-                </Space>
+        <div style={{ margin: '20px', width: '350px', height: '25px', backgroundColor: '#411763', color: 'white', padding: '6px', border: '1px', borderRadius: '2px' }}>
+            <Space>
+                Id:{lastUpdate?.lastId}
+                <span style={{ opacity: '0.4' }}>
+                    {dateConvert(lastUpdate?.dateOrgData)}
+                </span>
+            </Space>
         </div>
     )
 }

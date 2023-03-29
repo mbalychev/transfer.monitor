@@ -1,7 +1,7 @@
-import { DatePicker, Divider, List, Pagination, Space, Spin, TimePicker } from "antd"
+import { Divider, Input, InputNumber, List, Space, } from "antd"
 import { Col, Row } from "antd/es/grid";
 import { useEffect, useState, useRef } from 'react';
-import { getErrors, getSuccess } from '../../api/anchorage';
+import { getSuccess } from '../../api/anchorage';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { SuccessAnchorage } from "../../models/anchorage/success";
@@ -14,6 +14,7 @@ dayjs.extend(customParseFormat)
 export const AnchorageSuccess = () => {
     const [successList, setSuccessList] = useState<IAnchorageResponse>();
     const [pagetSuccess, setPageSuccess] = useState<number>(1);
+    const [updateSuccessEvery, setUpdateSuccessEvery] = useState<number>(100000);
     const onPageSuccess = 15;
     const refToSpinSuccess = useRef<HTMLDivElement>(null!);
 
@@ -29,28 +30,37 @@ export const AnchorageSuccess = () => {
         else
         return 'white';
     }
-    
+
     const updateSuccesInterval = () => {
         setTimeout(async () => {
             await loadSuccess();
             updateSuccesInterval();
-        },10000);
+        },updateSuccessEvery);
     }
 
     useEffect(() =>{
+        loadSuccess();
         updateSuccesInterval();
-    },[]) 
+    },[pagetSuccess, updateSuccessEvery]) 
     
     return (
         <div style={{margin: '20px'}}>
-            <Divider style={{color: "white", backgroundColor: "green", borderRadius: '2px'}}>
+            <Space>
+            Update:
+            <InputNumber 
+                title="автобновление каждые (сек.)" 
+                onChange={(val) => setUpdateSuccessEvery(Number(val))}
+                defaultValue={updateSuccessEvery}/>
+                sec.
+            </Space>
+            <div style={{color: "white", backgroundColor: "green", borderRadius: '2px'}}>
                 <Space>
                 success
                 <div ref={refToSpinSuccess} style={{color: 'white', visibility: 'hidden'}}>
                     <LoadingOutlined style={{color: '#ffffff'}}/>
                 </div>
             </Space>
-            </Divider>
+            </div>
         <List 
         size='small'
         dataSource={successList?.successResult}
