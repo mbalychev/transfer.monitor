@@ -9,6 +9,7 @@ import {
 
 import { Anchorage } from './pages/anchorage/anchorage'
 import { Groups } from './pages/Groups/Groups';
+import { Xml } from './pages/xml/xml';
 
 export const Router = () => {
     const [serverIp, setServerIp] = useState('192.168.1.97');
@@ -42,6 +43,9 @@ export const Router = () => {
                     </Route>
                     <Route path="/groups">
                         <Route index element={<Groups server={serverIp} />} />
+                    </Route>
+                    <Route path="/xml">
+                        <Route index element={<Xml />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
