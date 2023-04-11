@@ -11,7 +11,12 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 dayjs.extend(customParseFormat)
 
-export const AnchorageSuccess = () => {
+interface Props {
+    server: string;
+}
+
+
+export const AnchorageSuccess = (props: Props) => {
     const [successList, setSuccessList] = useState<IAnchorageResponse>();
     const [pagetSuccess, setPageSuccess] = useState<number>(1);
     const [updateSuccessEvery, setUpdateSuccessEvery] = useState<number>(100000);
@@ -20,75 +25,84 @@ export const AnchorageSuccess = () => {
 
     const loadSuccess = async () => {
         refToSpinSuccess.current.style.visibility = 'visible';
-        const resp: IAnchorageResponse = await getSuccess(pagetSuccess, onPageSuccess);
+        const resp: IAnchorageResponse = await getSuccess(serverIp, pagetSuccess, onPageSuccess);
         setSuccessList(resp);
         refToSpinSuccess.current.style.visibility = 'hidden';
     }
+    const [serverIp, setServerIp] = useState<string>('');
     const anchorageTypeColor = (model: SuccessAnchorage): string => {
-        if(model.model.tBrokerOrgDocs.tBOD_Type == 2)
-            return '#f1dff1';   
+        if (model.model.tBrokerOrgDocs.tBOD_Type == 2)
+            return '#f1dff1';
         else
-        return 'white';
+            return 'white';
     }
 
     const updateSuccesInterval = () => {
         setTimeout(async () => {
             await loadSuccess();
             updateSuccesInterval();
-        },updateSuccessEvery);
+        }, updateSuccessEvery);
     }
+    useEffect(() => {
+        setServerIp(props.server);
+        loadSuccess();
+    }, [props])
 
-    useEffect(() =>{
+    useEffect(() => {
+        updateSuccesInterval();
+    }, [])
+
+    useEffect(() => {
         loadSuccess();
         updateSuccesInterval();
-    },[pagetSuccess, updateSuccessEvery]) 
-    
+    }, [pagetSuccess, updateSuccessEvery])
+
     return (
-        <div style={{margin: '20px'}}>
+        <div style={{ margin: '20px' }}>
             <Space>
-            Update:
-            <InputNumber 
-                title="автобновление каждые (сек.)" 
-                onChange={(val) => setUpdateSuccessEvery(Number(val))}
-                defaultValue={updateSuccessEvery}/>
+                Update:
+                <InputNumber
+                    title="автобновление каждые (сек.)"
+                    onChange={(val) => setUpdateSuccessEvery(Number(val))}
+                    defaultValue={updateSuccessEvery} />
                 sec.
             </Space>
-            <div style={{color: "white", backgroundColor: "green", borderRadius: '2px'}}>
+            <div style={{ color: "white", backgroundColor: "green", borderRadius: '2px' }}>
                 <Space>
-                success
-                <div ref={refToSpinSuccess} style={{color: 'white', visibility: 'hidden'}}>
-                    <LoadingOutlined style={{color: '#ffffff'}}/>
-                </div>
-            </Space>
+                    success
+                    <div ref={refToSpinSuccess} style={{ color: 'white', visibility: 'hidden' }}>
+                        <LoadingOutlined style={{ color: '#ffffff' }} />
+                    </div>
+                </Space>
             </div>
-        <List 
-        size='small'
-        dataSource={successList?.successResult}
-        style={{textAlign: "left"}}
-        pagination={{
-        onChange: (page) => {
-        setPageSuccess(page);
-        },
-        defaultCurrent: successList?.pageNumber,
-        total: successList?.total,
-        pageSize: onPageSuccess
-        }}
-        renderItem = {(success) => (
-            <Row style={{backgroundColor: anchorageTypeColor(success)}}>
-                <Col span={4}>
-                    <span>
-                       ИНН: {success.model.inn}
-                    </span>
-                </Col>
-                <Col span={12}>
-                    {success.name ? success.name : '-'}
-                </Col>
-                <Col span={6}>
-                <span>{dateConvert(success.date)}</span>
-                </Col>
-            </Row>
-        )
-    }/>
-    </div>
+            <List
+                size='small'
+                dataSource={successList?.successResult}
+                style={{ textAlign: "left" }}
+                pagination={{
+                    onChange: (page) => {
+                        setPageSuccess(page);
+                    },
+                    defaultCurrent: successList?.pageNumber,
+                    total: successList?.total,
+                    pageSize: onPageSuccess
+                }}
+                renderItem={(success) => (
+                    <Row style={{ backgroundColor: anchorageTypeColor(success) }}>
+                        <Col span={4}>
+                            <span>
+                                ИНН: {success.model.inn}
+                            </span>
+                        </Col>
+                        <Col span={12}>
+                            {success.name ? success.name : '-'}
+                        </Col>
+                        <Col span={6}>
+                            <span>{dateConvert(success.date)}</span>
+                        </Col>
+                    </Row>
+                )
+                } />
+        </div>
     )
 }

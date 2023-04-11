@@ -2,21 +2,22 @@ import axios from 'axios';
 import { ILastUpdate } from '../models/anchorage/lastUpdate';
 import { IAnchorageResponse } from '../models/anchorage/AnchorageResponse';
 
-const backend = 'http://192.168.1.90:4097/api/Anchorage';
+const backendPartOne = 'http://'
+const backendPartTwo = ':4097/api/Anchorage'
 
-export const getErrors = async (pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
-    const resp = await axios.get<IAnchorageResponse>(`${backend}/Errors?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
+export const getErrors = async (serverIp: string, pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
+    const resp = await axios.get<IAnchorageResponse>(`${backendPartOne}${serverIp}${backendPartTwo}/Errors?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
     return resp.data as IAnchorageResponse;
 }
-export const getSuccess = async  (pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
-    const resp = await axios.get<IAnchorageResponse>(`${backend}/success?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
+export const getSuccess = async  (serverIp: string, pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
+    const resp = await axios.get<IAnchorageResponse>(`${backendPartOne}${serverIp}${backendPartTwo}/success?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
     return resp.data as IAnchorageResponse;
 }
-export const getLastUpdate = async  ():Promise<ILastUpdate> => {
-    const resp = await axios.get<ILastUpdate>(`${backend}/Last`);
+export const getLastUpdate = async  (serverIp: string):Promise<ILastUpdate> => {
+    const resp = await axios.get<ILastUpdate>(`${backendPartOne}${serverIp}${backendPartTwo}/Last`);
     return resp.data as ILastUpdate;
 }
-export const getCommonError = async  (pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
-    const resp = await axios.get<IAnchorageResponse>(`${backend}/CommonError?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
+export const getCommonError = async  (serverIp: string, pagetErorr: number, onPageErrors: number):Promise<IAnchorageResponse> => {
+    const resp = await axios.get<IAnchorageResponse>(`${backendPartOne}${serverIp}${backendPartTwo}/CommonError?pageNumber=${pagetErorr}&itemsOnPage=${onPageErrors}`);
     return resp.data as IAnchorageResponse;
 }

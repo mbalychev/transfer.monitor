@@ -7,18 +7,25 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { dateConvert } from '../../models/dateConvert';
 
-
+interface Props {
+    server: string;
+}
 dayjs.extend(customParseFormat);
 
-export const LastUpdateUnchorage = () => {
+export const LastUpdateUnchorage = (props: Props) => {
     const [lastUpdate, setLastUpdate] = useState<ILastUpdate>();
-
+    const [serverIp, setServerIp] = useState<string>('');
     const loadLastUpdate = async () => {
-        const result: ILastUpdate = await getLastUpdate();
+        const result: ILastUpdate = await getLastUpdate(serverIp);
         console.log(result);
 
         setLastUpdate(result);
     }
+
+    useEffect(() => {
+        setServerIp(props.server);
+        loadLastUpdate();
+    }, [props])
 
     const updateIntervalLastUpdate = () => {
         setTimeout(async () => {

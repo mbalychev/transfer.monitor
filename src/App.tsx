@@ -7,39 +7,13 @@ import { Col, Row } from 'antd/es/grid';
 import { Space } from 'antd';
 import { LastUpdateUnchorage } from './components/anchorage/lastUpdate';
 import { CommonErrors } from './components/anchorage/commonErrors';
+import { Router } from './Router';
 
 
 function App() {
   return (
     <div className="App">
-      <Row>
-        <Col span={2}>
-          <header>
-            <Space>
-              Monitor
-              <img src={logo} alt="logo" style={{ height: '20px' }} />
-            </Space>
-          </header>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <LastUpdateUnchorage />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <AnchorageErrors />
-        </Col>
-        <Col span={12}>
-          <AnchorageSuccess />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12}>
-          <CommonErrors />
-        </Col>
-      </Row>
+      <Router />
     </div>
   );
 }
