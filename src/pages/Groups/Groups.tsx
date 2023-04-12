@@ -16,6 +16,9 @@ export const Groups = (props: Props) => {
 
     return (
         <div>
+            <h2>
+                Groups
+            </h2>
             <Row>
                 <Col span={12}>
                     <GroupCommon server={serverIp} />

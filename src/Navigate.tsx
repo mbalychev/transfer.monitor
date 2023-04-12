@@ -39,10 +39,21 @@ export const Navigate = () => {
         }
     ]
     return (
-        // <Router>
         <div>
             <header>
+                <Space>
                 <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+                    <Select
+                        style={{ width: '200px' }}
+                        value={serverIp}
+                        onSelect={(val) => setServerIp(val)}
+                        options={[
+                            { value: '192.168.1.97', label: 'dev' },
+                            { value: '192.168.1.98', label: 'test' },
+                            { value: '192.168.1.90', label: 'prod' }
+                        ]}>
+                    </Select>
+                </Space>
             </header>
             <Routes>
                 <Route path="/anchorage">
@@ -57,6 +68,5 @@ export const Navigate = () => {
             </Routes>
 
         </div>
-        // </Router>
     );
 };

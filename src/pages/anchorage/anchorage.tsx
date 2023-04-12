@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd/es/grid';
 import { Space } from 'antd';
-import { LastUpdateUnchorage } from '../../components/anchorage/lastUpdate';
+import { LastUpdateUnchorage } from '../../components/anchorage/lastUpdateUnchorage';
 import { AnchorageErrors } from '../../components/anchorage/errors';
 import { AnchorageSuccess } from '../../components/anchorage/success';
 import { CommonErrors } from '../../components/anchorage/commonErrors';
@@ -17,15 +17,9 @@ export const Anchorage = (props: Props) => {
 
   return (
     <div>
-      <Row>
-        <Col span={2}>
-          <header>
-            <Space>
-              Anchorage
-            </Space>
-          </header>
-        </Col>
-      </Row>
+      <h2>
+        Anchorage
+      </h2>
       <Row>
         <Col>
           <LastUpdateUnchorage server={serverIp} />
