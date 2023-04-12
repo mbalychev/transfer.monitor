@@ -35,7 +35,7 @@ export const XmlErrors = () => {
     }
 
     return (
-        <div>
+        <div style={{ margin: '20px' }}>
             <List
                 dataSource={errors}
                 header={header()}

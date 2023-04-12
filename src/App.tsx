@@ -7,13 +7,13 @@ import { Col, Row } from 'antd/es/grid';
 import { Space } from 'antd';
 import { LastUpdateUnchorage } from './components/anchorage/lastUpdate';
 import { CommonErrors } from './components/anchorage/commonErrors';
-import { Router } from './Router';
+import { Navigate } from './Navigate';
 
 
 function App() {
   return (
     <div className="App">
-      <Router />
+      <Navigate />
     </div>
   );
 }
