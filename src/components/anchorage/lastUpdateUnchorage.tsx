@@ -44,9 +44,9 @@ export const LastUpdateUnchorage = (props: Props) => {
     }
 
     return (
-        <div style={{ margin: '20px', width: '350px', height: '25px', backgroundColor: '#411763', color: 'white', padding: '6px', border: '1px', borderRadius: '2px' }}>
+        <div style={{ margin: '20px', width: '350px', height: '25px', backgroundColor: '#d6deea', color: 'black', padding: '6px', border: '1px', borderRadius: '2px' }}>
             <Space>
-                Id:{lastUpdate?.lastId}
+                last Id:{lastUpdate?.lastId}
                 <span style={{ opacity: '0.4' }}>
                     {dateConvert(lastUpdate?.dateOrgData)}
                 </span>

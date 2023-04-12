@@ -19,9 +19,10 @@ interface Props {
 export const AnchorageSuccess = (props: Props) => {
     const [successList, setSuccessList] = useState<IAnchorageResponse>();
     const [pagetSuccess, setPageSuccess] = useState<number>(1);
-    const [updateSuccessEvery, setUpdateSuccessEvery] = useState<number>(100000);
+    const [updateSuccessEvery, setUpdateSuccessEvery] = useState<number>(10000);
     const onPageSuccess = 15;
     const refToSpinSuccess = useRef<HTMLDivElement>(null!);
+    const [interval, setInterval] = useState<Date>(new Date);
 
     const loadSuccess = async () => {
         refToSpinSuccess.current.style.visibility = 'visible';
@@ -38,24 +39,22 @@ export const AnchorageSuccess = (props: Props) => {
     }
 
     const updateSuccesInterval = () => {
+        loadSuccess();
         setTimeout(async () => {
-            await loadSuccess();
+            setInterval(new Date) 
             updateSuccesInterval();
         }, updateSuccessEvery);
     }
+
     useEffect(() => {
         setServerIp(props.server);
-        loadSuccess();
+        updateSuccesInterval();
     }, [props])
 
     useEffect(() => {
-        updateSuccesInterval();
-    }, [])
-
-    useEffect(() => {
         loadSuccess();
-        updateSuccesInterval();
-    }, [pagetSuccess, updateSuccessEvery])
+    }, [interval])
+
 
     return (
         <div style={{ margin: '20px' }}>
