@@ -1,4 +1,11 @@
-export interface IErrorsResults {
+
+export type IErorResultsResponse =  IErrorsResults;
+interface IErrorsResults {
+  pageInfo: PageInfo;
+  xmlErrors: XmlError[];
+}
+
+export interface XmlError {
     id: number;
     parentId?: number;
     fileId: number;
@@ -12,4 +19,8 @@ export interface IErrorsResults {
     result?: string;
 }
 
-export type IErorResultsResponse =  IErrorsResults[];
+export interface PageInfo {
+  totalItems: number;
+  currentPages: number;
+  onPage: number;
+}

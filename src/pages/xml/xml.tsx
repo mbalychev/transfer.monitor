@@ -1,8 +1,5 @@
 import { Col, List, Row } from 'antd';
-import { useState, useEffect } from 'react';
-import { getXmlErrors } from "../../api/xml";
 import { XmlErrors } from '../../components/xml/xmlErrors';
-import { IErrorsResults } from "../../models/xml/errorsResults";
 
 export const Xml = () => {
 
@@ -13,7 +10,7 @@ export const Xml = () => {
             </h2>
             <Row >
                 <Col span={12}>
-                    <XmlErrors></XmlErrors>
+                    <XmlErrors />
                 </Col>
             </Row>
         </div>

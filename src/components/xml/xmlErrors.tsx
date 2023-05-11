@@ -3,17 +3,17 @@ import { List, Space } from 'antd';
 import { useState, useEffect, useRef } from 'react';
 import { JsxElement } from 'typescript';
 import { getXmlErrors } from "../../api/xml";
-import { IErrorsResults } from "../../models/xml/errorsResults";
+import { IErorResultsResponse, XmlError } from "../../models/xml/errorsResults";
 
 export const XmlErrors = () => {
 
-    const [errors, setErrors] = useState<IErrorsResults[]>();
+    const [errors, setErrors] = useState<XmlError[]>();
     const refToSpinError = useRef<HTMLDivElement>(null!);
 
     const loadErrors = async () => {
         refToSpinError.current.style.visibility = 'visible';
-        const resp = await getXmlErrors();
-        setErrors(resp as IErrorsResults[]);
+        const resp: IErorResultsResponse = await getXmlErrors();
+        setErrors(resp.xmlErrors);
         refToSpinError.current.style.visibility = 'hidden';
     }
 
